@@ -22,21 +22,26 @@ class HeadsTails
 		when 1 
 			puts "\n\n\n\n"
 			puts "Let's have some fun!"
-			h_t_game
+			wallet_check
 		when 2
 			h_t_rules
 		when 3
+			puts "Goodbye"
 			return
 		else 
 			puts "Sorry, I did not understand that"
 			h_t_options
 		end
+		return
 	end
 
 	def wallet_check
-		unless @player.wallet.amount > 20
-			puts "Sorry, you're unable to spend your money here"
-			h_t_options
+		if @player.wallet.amount > 20
+			h_t_game
+		else
+			puts "\n\n\n\n\n"
+			puts "Sorry, you only have $#{@player.wallet.amount} unable to spend your money here"
+			return
 		end
 	end
 
@@ -57,7 +62,6 @@ class HeadsTails
 
 
 	def h_t_game
-		wallet_check
 		place_bet
 		ht = [1, 2]
 		dealer = ht.sample
@@ -67,7 +71,7 @@ class HeadsTails
 			puts "The dealer shows #{dealer}"
 			puts "#{@player.name} show #{fun}"
 			win_game
-		elsif fun == dealer
+		elsif fun != dealer
 			puts "The dealer shows #{dealer}"
 			puts "#{@player.name} show #{fun}"
 			lose_game
