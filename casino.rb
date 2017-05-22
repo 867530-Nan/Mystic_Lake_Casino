@@ -7,9 +7,8 @@ require_relative 'player'
 #require_relative 'dice'
 require_relative 'heads_tails'
 
-
 class Casino
-  attr_accessor :player
+  attr_accessor :player, :wallet
 
   def initialize
     puts 'Welcome to the Ruby Casino!'
@@ -56,9 +55,9 @@ def validate_input
     # Call Head Tails Game
     HeadsTails.new(player)
     when "2"
-    # Call Dice Game
+    Dice.new(player)
     when "3"
-    # Call Check Your Wallet Function
+      current_balance
     when "4"
       exit
   end
