@@ -2,7 +2,7 @@ require 'pry'
 require 'colorize'
 
 require_relative 'casino'
-
+#useless line
 class HeadsTails
 
 	def initialize(player)
