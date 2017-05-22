@@ -60,8 +60,8 @@ class Casino
       when "4"
         exit
     end
-  end
-
+    casino_menu  
+  end 
 end
 
 
