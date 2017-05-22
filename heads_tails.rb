@@ -1,9 +1,6 @@
 require 'pry'
 require 'colorize'
 
-
-ante = 2.0
-
 class HeadsTails
 
 	@heads_tails = ['heads', 'tails']
@@ -82,4 +79,3 @@ class HeadsTails
 
 end
 
-HeadsTails.new
