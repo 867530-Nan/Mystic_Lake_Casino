@@ -36,9 +36,8 @@ class Casino
       # Check if selection is valid
       check_valid_menu_choice
   end
-end
 
-def check_valid_menu_choice
+  def check_valid_menu_choice
     # Go forward with choice
     if @valid_selection.include? @menu_selection
       validate_input
@@ -46,25 +45,24 @@ def check_valid_menu_choice
       puts "Invalid selection. Please select something from the menu "
       casino_menu
     end
-end
-
-# Case statement for Operator Methods
-def validate_input
-  case @menu_selection
-    when "1"
-    # Call Head Tails Game
-    HeadsTails.new(player)
-    when "2"
-    Dice.new(player)
-    when "3"
-      current_balance
-    when "4"
-      exit
   end
+
+  # Case statement for Operator Methods
+  def validate_input
+    case @menu_selection
+      when "1"
+      # Call Head Tails Game
+      HeadsTails.new(@player)
+      when "2"
+      Dice.new(@player)
+      when "3"
+        current_balance
+      when "4"
+        exit
+    end
+  end
+
 end
-
-
-
 
 
 Casino.new
