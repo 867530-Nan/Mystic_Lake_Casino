@@ -1,11 +1,19 @@
+# @author Brennick Langston
+# @version 1.0.0
+
+# Rolling Dice Street Game
 class Dice
 
   attr_accessor :ante, :bet, :players
 
+  # Initializer for class Dice
+  # @param players [Array] array of players
+  # @param ante [Float] the ante required to be in the game
+  # @return nil
   def initialize(players = [], ante = 20.00)
     @ante = ante
     @players = {}
-    join_game(players)
+    players.is_a?(Array) ? join_game(players) : join_game([players])
   end
 
   def place_bet
