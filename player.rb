@@ -16,7 +16,7 @@ class Player
     puts "What is your gender #{@gender}?"
     @gender = gets.strip
     puts "How much money are you playing with?"
-    amount = gets.to_f
+    amount = gets.strip.to_f
     @wallet = Wallet.new(amount)
   end
 end
