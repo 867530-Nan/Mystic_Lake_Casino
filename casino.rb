@@ -49,7 +49,6 @@ class Casino
 
   # Case statement for Operator Methods
   def validate_input(menu_selection)
-    binding.pry
     case menu_selection
       when "1"
         # Call Head Tails Game
