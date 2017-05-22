@@ -14,9 +14,6 @@ class Player
     puts "What is your age #{@name}?"
     @age = gets.strip.to_i
     puts "What is your gender #{@gender}?"
-    @gender = gets.strip
-    puts "How much money are you playing with?"
-    amount = gets.strip.to_f
-    @wallet = Wallet.new(amount)
+    @wallet = Wallet.new # random start
   end
 end

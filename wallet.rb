@@ -1,8 +1,8 @@
 class Wallet
     attr_accessor :amount
 
-    def initialize(amount)
-        @amount = amount.to_f
+    def initialize(amount = nil, max = 100)
+        @amount = ( amount || rand(1..max))
     end
 
     def in_debt?
