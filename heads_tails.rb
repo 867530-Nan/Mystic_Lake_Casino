@@ -4,7 +4,7 @@ require 'colorize'
 
 ante = 2.0
 
-
+#this means nothing but my git addition
 
 class HeadsTails
 
