@@ -13,6 +13,8 @@ class Player
     @gender = gets.strip.to_i
     # random start
     @wallet = Wallet.new 
+    @gender = gets.strip
+    @wallet = Wallet.new # random start
   end
 
   def is_of_age?
