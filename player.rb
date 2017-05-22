@@ -10,6 +10,7 @@ class Player
     puts "What is your age #{@name}?"
     @age = gets.strip.to_i
     puts "What is your gender #{@gender}?"
+    @gender = gets.strip
     @wallet = Wallet.new # random start
   end
 
