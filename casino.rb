@@ -4,7 +4,9 @@ require 'colorize'
 
 # Local Classes required - all games
 require_relative 'player'
-require_relative 'game_1'
+require_relative 'dice'
+require_relative 'headstails'
+
 
 class Casino
   attr_accessor :player
