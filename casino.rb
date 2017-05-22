@@ -4,7 +4,7 @@ require 'colorize'
 
 # Local Classes required - all games
 require_relative 'player'
-#require_relative 'dice'
+require_relative 'dice'
 require_relative 'heads_tails'
 
 class Casino
@@ -56,7 +56,7 @@ class Casino
       when "2"
       Dice.new(@player)
       when "3"
-        current_balance
+        @player.current_balance
       when "4"
         exit
     end
