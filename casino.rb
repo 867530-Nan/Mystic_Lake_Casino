@@ -16,24 +16,25 @@ class Casino
     casino_menu
   end
 
-def casino_menu
-    @valid_selection = ["1", "2", "3", "4"]
-    puts "*****************************************"
-    puts "*                                       *"
-    puts "*   WELCOME TO THE MYSTIC LAKE CASINO!  *"
-    puts "*                                       *"
-    puts "*   PLEASE MAKE A SELECTION TODAY...    *"   
-    puts "*                                       *"     
-    puts "*   1) Play Heads Tails                 *"
-    puts "*   2) Play Dice                        *"
-    puts "*   3) Check your wallet for money      *"      
-    puts "*   4) Exit                             *"
-    puts "*                                       *"
-    puts "*****************************************"
-    puts
-    @menu_selection = gets.chomp
-    # Check if selection is valid
-    check_valid_menu_choice
+  def casino_menu
+      @valid_selection = ["1", "2", "3", "4"]
+      puts "*****************************************"
+      puts "*                                       *"
+      puts "*   WELCOME TO THE MYSTIC LAKE CASINO!  *"
+      puts "*                                       *"
+      puts "*   PLEASE MAKE A SELECTION TODAY...    *"   
+      puts "*                                       *"     
+      puts "*   1) Play Heads Tails                 *"
+      puts "*   2) Play Dice                        *"
+      puts "*   3) Check your wallet for money      *"      
+      puts "*   4) Exit                             *"
+      puts "*                                       *"
+      puts "*****************************************"
+      puts
+      @menu_selection = gets.chomp
+      # Check if selection is valid
+      check_valid_menu_choice
+  end
 end
 
 def check_valid_menu_choice
