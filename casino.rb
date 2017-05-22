@@ -34,13 +34,13 @@ class Casino
       puts
       @menu_selection = gets.chomp
       # Check if selection is valid
-      check_valid_menu_choice
+      check_valid_menu_choice(@menu_selection)
   end
 
-  def check_valid_menu_choice
+  def check_valid_menu_choice(menu_selection)
     # Go forward with choice
     if @valid_selection.include? @menu_selection
-      validate_input
+      validate_input(menu_selection)
     else 
       puts "Invalid selection. Please select something from the menu "
       casino_menu
@@ -48,15 +48,16 @@ class Casino
   end
 
   # Case statement for Operator Methods
-  def validate_input
-    case @menu_selection
+  def validate_input(menu_selection)
+    binding.pry
+    case menu_selection
       when "1"
-      # Call Head Tails Game
-      HeadsTails.new(@player)
+        # Call Head Tails Game
+        HeadsTails.new(@player)
       when "2"
-      Dice.new(@player)
+        Dice.new(@player)
       when "3"
-        @player.current_balance
+        @player.wallet.current_balance
       when "4"
         exit
     end
