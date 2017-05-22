@@ -1,8 +1,6 @@
 require 'pry'
 require 'colorize'
 
-require_relative 'casino'
-#useless line
 class HeadsTails
 
 	def initialize(player)
@@ -44,7 +42,7 @@ class HeadsTails
 
 	def place_bet
 		puts "$20 ante's are collected"
-		@player.wallet.amount - 20.0
+		@player.wallet.amount -= 20.0
 	end
 
 	def h_t_rules
@@ -82,7 +80,7 @@ class HeadsTails
 	end
 
 	def win_game
-		@player.wallet.amount + 20
+		@player.wallet.amount += 20
 		puts "Congratulations on the big win"
 		puts "You've just won $20"
 		h_t_options
