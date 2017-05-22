@@ -14,11 +14,13 @@ class Dice
     @ante = ante
     @players = {}
     players.is_a?(Array) ? join_game(players) : join_game([players])
+    play_round
   end
 
   def place_bet
     print "What is your bet? [1 for pass, 2 for don\'t pass, 3 for points]\s"
-    gets.strip.to_i
+    ans = gets.strip.to_i
+    ans
   end
 
   def place_ante
@@ -40,7 +42,11 @@ class Dice
   end
 
   def join_game(players)
-    @players.each { |player| @players[player][:points] = 0 } if can_join? && players.any?
+    if can_join? && players.any?
+      players.each do |player|
+        @players[player] = { points: 0, earnings: 0, ante: 0 }
+      end
+    end
   end
 
   def can_join?
@@ -72,21 +78,30 @@ class Dice
     @players[player][:points] += point
   end
 
-  def loser(player, point = 1)
-    @players[player][:points] -= point
+  def loser(player, points = 1)
+    if @players[player][:points] - points >= 0
+      @players[player][:points] -= points
+    end
   end
 
   def play_round(rounds = 1)
     @players.keys.each do |player|
       @players[player][:ante] = place_ante
     end
-    (0..rounds).each {
+    (1..rounds).each {
       @players.keys.each do |player|
         roll
         win_lose?(player, place_bet)
       end
     }
     see_bookie
+    quit_game?
+  end
+
+  def quit_game?
+    print "Quit?\s(y/N)\s"
+    yN = gets
+    yN =~ /[y|Y|yes|Yes]/ ? exit : play_round
   end
 
   def see_bookie
@@ -102,6 +117,7 @@ class Dice
     @players.each do |player, data|
       if data[:points] == highest_points
         winner = player
+        earnings += @players[winner][:ante] if @players.keys.count == 1
       else
         earnings += data[:ante]
         player.wallet.amount -= data[:ante]
