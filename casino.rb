@@ -56,7 +56,7 @@ class Casino
       when "2"
         Dice.new(@player)
       when "3"
-        @player.wallet.current_balance
+        @player.wallet.print_current_balance
       when "4"
         exit
     end

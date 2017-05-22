@@ -6,10 +6,10 @@ class Wallet
     end
 
     def in_debt?
-      @amount > 0
+      @amount < 0
     end
 
-    def current_balance
+    def print_current_balance
         puts 
         print "You have exactly "
         print @amount
