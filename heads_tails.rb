@@ -1,17 +1,19 @@
 require 'pry'
 require 'colorize'
 
+require_relative 'casino'
+#useless line
 class HeadsTails
 
-	@heads_tails = ['heads', 'tails']
-
 	def initialize(player)
+		@player = player
 		h_t_options
 	end
 
 	def h_t_options
+		puts "\n\n\n\n\n\n\n\n"
 		puts "Welcome to Heads - Tails"
-		puts "#{player.name} you have a balance of #{player.wallet.amount}."
+		puts "#{@player.name} you have a balance of $#{@player.wallet.amount}."
 		puts "Heads - Tails costs $20 for 1 play"
 		puts "Please select an option:"
 		puts "1) Play Heads - Tails"
@@ -20,6 +22,7 @@ class HeadsTails
 		puts "Enter 1, 2, or 3"
 		case gets.chomp.to_i
 		when 1 
+			puts "\n\n\n\n"
 			puts "Let's have some fun!"
 			h_t_game
 		when 2
@@ -32,12 +35,21 @@ class HeadsTails
 		end
 	end
 
+	def wallet_check
+		unless @player.wallet.amount > 20
+			puts "Sorry, you're unable to spend your money here"
+			h_t_options
+		end
+	end
+
 	def place_bet
-		puts "Alright #{player.name}, places $20.00 on the table"
+		puts "$20 ante's are collected"
 		@player.wallet.amount - 20.0
 	end
 
 	def h_t_rules
+		puts "\n\n\n\n\n\n\n\n\n\n\n\n"
+		puts "Rules of the game:"
 		puts "Heads and Tails is an ancient game, dating back to the Mesozoic Era."
 		puts "The Basics are:"
 		puts "Pick either heads or tails, and if it matches what the dealer chooses, you win."
@@ -47,25 +59,30 @@ class HeadsTails
 
 
 	def h_t_game
+		wallet_check
 		place_bet
-		dealer = @heads_tails.sample
+		ht = [1, 2]
+		dealer = ht.sample
 		puts "Do you choose 1) Heads or 2) Tails [1, 2]"
-		fun = get.strip.to_i
-		if fun == 1
+		fun = gets.chomp.to_i
+		if fun == dealer
+			puts "The dealer shows #{dealer}"
+			puts "#{@player.name} show #{fun}"
 			win_game
-		elsif fun == 2
+		elsif fun == dealer
+			puts "The dealer shows #{dealer}"
+			puts "#{@player.name} show #{fun}"
 			lose_game
 		else
 			puts "Sorry, we couldn't understand you."
 			puts "Someone has had a little too much to drink."
 			puts "You lose $20"
-			@player.wallet.amount - 20.0
-			HeadsTails
+			h_t_options
 		end
 	end
 
 	def win_game
-		@player.wallet.amount + 20.0
+		@player.wallet.amount + 20
 		puts "Congratulations on the big win"
 		puts "You've just won $20"
 		h_t_options

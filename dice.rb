@@ -43,6 +43,10 @@ class Dice
     sum.zero? # can join if all points are zero
   end
 
+  def clear_points
+    @players.values.each { |data| data[:points].clear }
+  end
+
   def win_lose?(player, bet)
     case @die1 + @die2
     when 7 || 11 # pass
@@ -64,13 +68,52 @@ class Dice
     @players[player][:points] -= point
   end
 
-  def play_round
+  def play_round(rounds = 1)
     @players.keys.each do |player|
       @players[player][:ante] = place_ante
     end
-    @players.keys.each do |player|
-      roll
-      win_lose?(player, place_bet)
-    end
+    (0..rounds).each {
+      @players.keys.each do |player|
+        roll
+        win_lose?(player, place_bet)
+      end
+    }
+    see_bookie
   end
+
+  def see_bookie
+    winner, earnings = high_points_winner
+    @players[winner][:earnings] = earnings
+    show_winner_info(winner)
+  end
+
+  def high_points_winner
+    highest_points = find_highest_points
+    earnings = 0
+    winner = nil
+    @players.each do |player, data|
+      if data[:points] == highest_points
+        winner = player
+      else
+        earnings += data[:ante]
+        player.wallet.amount -= data[:ante]
+      end
+    end
+    [winner, earnings]
+  end
+
+  def find_highest_points
+    highest = 0
+    @players.values.each do |data|
+      highest = data[:points] if data[:points] > highest
+    end
+    highest
+  end
+
+  def show_winner_info(winner)
+    points = @players[winner][:points]
+    earnings = @players[winner][:earnings]
+    puts "Points Leader:\s#{winner.name}\swith #{points} points and $#{earnings}"
+  end
+
 end
