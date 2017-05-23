@@ -3,6 +3,8 @@ require 'colorize'
 #meaningless comment
 class HeadsTails
 
+	attr_accessor :player, :wallet
+
 	def initialize(player)
 		@player = player
 		h_t_options
