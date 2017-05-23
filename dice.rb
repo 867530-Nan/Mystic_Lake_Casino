@@ -6,7 +6,7 @@ require 'pry'
 require 'Colorize'
 require 'tty'
 
-require_relative 'Wallet'
+# require_relative 'Wallet'
 
 # Rolling Dice Street Game
 class Dice
@@ -92,7 +92,7 @@ class Dice
   # @param player [Player] a single player object placing the ante
   # @return [Integer]
   def place_ante(player)
-    # show_wallets
+    show_wallets
     ante = @prompt.ask("What is #{player.name}\'s ante?\s", convert: :float)
     max_ante = player.wallet.amount
     out_of_funds(player) if ante > max_ante || max_ante.zero?
@@ -289,21 +289,21 @@ class Dice
   end
 
 end
-
-class Player
-  attr_accessor :name, :age, :gender, :wallet
-  def initialize(name, age, gender)
-    @name = name
-    @age = age
-    @gender = gender
-    @wallet = Wallet.new
-  end
-end
-
-players = [
-  Player.new('Jennifer', 34, 'female'),
-  Player.new('Brennick', 21, 'male'),
-  Player.new('Francis', 34, 'female')
-]
-
-Dice.new(players)
+#
+# class Player
+#   attr_accessor :name, :age, :gender, :wallet
+#   def initialize(name, age, gender)
+#     @name = name
+#     @age = age
+#     @gender = gender
+#     @wallet = Wallet.new
+#   end
+# end
+#
+# players = [
+#   Player.new('Jennifer', 34, 'female'),
+#   Player.new('Brennick', 21, 'male'),
+#   Player.new('Francis', 34, 'female')
+# ]
+#
+# Dice.new(players)
