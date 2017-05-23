@@ -21,6 +21,8 @@ class Dice
     show_menu
   end
 
+  # Displays a simple menu when starting the dice game
+  # @return nil
   def show_menu
     puts "\e[2J"
     puts '-' * 50
@@ -48,6 +50,8 @@ class Dice
     play_round(gets.strip.to_i)
   end
 
+  # Displays the players amounts that are left in their wallets (aka. cash flow)
+  # @return nil
   def show_wallets
     puts "\e[2J"
     puts "++++++++++++++++++ Players Wallets ++++++++++++++++++"
@@ -59,6 +63,9 @@ class Dice
     puts "\n"
   end
 
+  # Obtains the bet that the player is going to place on the next round of dice
+  # @param player [Player] a single player object of the game
+  # @return [Integer]
   def place_bet(player)
     print "What is #{player.name}\'s bet? " +
       "[ Enter 1 for pass, 2 for don\'t pass, 3 for points]\s"
@@ -66,6 +73,9 @@ class Dice
     ans
   end
 
+  # Obtains the ante for the next set of rounds from each player
+  # @param [Player] a single player object placing the ante
+  # @return [Integer]
   def place_ante(player)
     show_wallets
     print "What is #{player.name}\'s ante?\s"
@@ -75,6 +85,9 @@ class Dice
     ante
   end
 
+  # Determines if a player is out of funds and will go in debt
+  # @param player [Player] a single player object of the game
+  # @return nil
   def out_of_funds(player)
     puts "\e[2J"
     puts "#{player.name.capitalize}!!!\s Your out of Money.".red
@@ -84,19 +97,28 @@ class Dice
     gets
   end
 
+  # Rolls the dice and gives back some random numbers for each die
+  # @return nil
   def roll
     @die1 = 1 + rand(6)
     @die2 = 1 + rand(6)
   end
 
+  # Displays the values of each die when they were rolled
+  # @return nil
   def show_dice
     puts "Die 1 = #{@die1}\nDie 2 = #{@die2}"
   end
 
+  # Displays the sum of the two die
+  # @return
   def show_sum
     puts "Dice Sum: #{@die1 + @die2}."
   end
 
+  # Determines who and when players can join a round of the game
+  # @param players [Player] array or single player to add into the game
+  # @return nil
   def join_game(players)
     if can_join? && players.any?
       players.each do |player|
@@ -105,6 +127,8 @@ class Dice
     end
   end
 
+  # Calculates if the timming is right to be able to join the game
+  # @return bool
   def can_join?
     sum = 0
     @players.keys.each do |player|
@@ -113,10 +137,16 @@ class Dice
     sum.zero? # can join if all points are zero
   end
 
+  # Resets the points for each player to zero
+  # @return nil
   def clear_points
     @players.values.each { |data| data[:points].clear }
   end
 
+  # Main Method for running and determining the outcome of a roll of the dice
+  # @param player [Player] a single player object who's turn it is to play
+  # @param bet [Integer] number indicating the desired sum of the dice for a win
+  # @param return nil
   def win_lose?(player, bet)
     show_sum
     show_dice
@@ -133,11 +163,19 @@ class Dice
     end
   end
 
+  # Sets the points gain for a single player from their roll of dice
+  # @param player [Player] a single player object of the winner
+  # @param points [Integer] number of points that the player will accrue
+  # @return nil
   def winner(player, points = 1)
     @players[player][:points] += points
     @players[player][:win] = true
   end
 
+  # Sets the points lost for a single player from their roll of dice
+  # @param player [Player] a single player object of the loser
+  # @param points [Integer] number of points lost by the player
+  # @return nil
   def loser(player, points = 1)
     if @players[player][:points] - points > 0
       @players[player][:points] -= points
@@ -147,6 +185,9 @@ class Dice
     @players[player][:win] = false
   end
 
+  # Initiates a number of rounds played for the given set of players
+  # @param rounds [Integer] number of rounds to be played before accruing antes
+  # @return nil
   def play_round(rounds = 1)
     show_wallets
     @players.keys.each do |player|
@@ -162,12 +203,17 @@ class Dice
     quit_game?
   end
 
+  # Quietly returns the state of the game back to the main Casino application
+  # @return nil
   def quit_game?
     print "Quit?\s(y/N)\s"
     yN = gets
     yN =~ /[y|Y|yes|Yes]/ ? return : play_round
   end
 
+  # The Bookie determines whether a player wins or loses their ante after a
+  # round of craps. Also, assigns winnings back into a players wallet
+  # @return nil
   def see_bookie
     winner, earnings = high_points_winner
     @players[winner][:earnings] = earnings
@@ -175,6 +221,11 @@ class Dice
     winner.wallet.amount += earnings
   end
 
+  # Determines who the high points winner is. Removes losers ante from
+  # their wallet and returns the winnings (pot) to the bookie for assigning
+  # back to the winner.
+  # @return winner [Player] a single players object reference
+  # @return earnings [Float] dollars earned by winning
   def high_points_winner
     winner = find_highest_points
     earnings = 0.0
@@ -193,6 +244,8 @@ class Dice
     [winner, earnings]
   end
 
+  # Determines who the winner or highest points holder is
+  # @return winner [Player] single player object of winner
   def find_highest_points
     highest = -1
     winner = nil
@@ -205,6 +258,9 @@ class Dice
     winner
   end
 
+  # Displays the winners informations
+  # @param winner [Player] single player object of the winner
+  # @return nil
   def show_winner_info(winner)
     points = @players[winner][:points]
     earnings = @players[winner][:earnings]
@@ -212,7 +268,7 @@ class Dice
   end
 
 end
-# 
+#
 # class Player
 #   attr_accessor :name, :age, :gender, :wallet
 #   def initialize(name, age, gender)
