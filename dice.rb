@@ -1,6 +1,10 @@
 # @author Brennick Langston
 # @version 1.0.0
 
+# require 'Colorize'
+#
+# require_relative 'Wallet'
+
 # Rolling Dice Street Game
 class Dice
 
@@ -39,7 +43,9 @@ class Dice
     puts "\n"
     puts format '%3s%s', ' ', 'Hit the [Enter Key] to try your luck!'
     gets
-    play_round
+    puts "\e[2J"
+    puts "   Enter the number rounds to be played:\s".red
+    play_round(gets.strip.to_i)
   end
 
   def show_wallets
@@ -62,19 +68,20 @@ class Dice
 
   def place_ante(player)
     show_wallets
-    print "What is your ante?\s"
+    print "What is #{player.name}\'s ante?\s"
     ante = gets.strip.to_f
     max_ante = player.wallet.amount
-    out_of_funds(player) if ante > max_ante && !max_ante.zero?
+    out_of_funds(player) if ante > max_ante || max_ante.zero?
     ante
   end
 
   def out_of_funds(player)
     puts "\e[2J"
     puts "#{player.name.capitalize}!!!\s Your out of Money.".red
-    puts 'Please Visit the closest ATM and Load Your Wallet to continue.'.green
+    puts 'This doesn\'t matter, we\'ll let you go in debt any!'.green
     puts "\n\n"
-    puts "Hit the [Enter] key..".yellow
+    puts 'Hit the [Enter] key..'.yellow
+    gets
   end
 
   def roll
@@ -205,3 +212,21 @@ class Dice
   end
 
 end
+# 
+# class Player
+#   attr_accessor :name, :age, :gender, :wallet
+#   def initialize(name, age, gender)
+#     @name = name
+#     @age = age
+#     @gender = gender
+#     @wallet = Wallet.new
+#   end
+# end
+#
+# players = [
+#   Player.new('Jennifer', 34, 'female'),
+#   Player.new('Brennick', 21, 'male'),
+#   Player.new('Francis', 34, 'female')
+# ]
+#
+# Dice.new(players)
