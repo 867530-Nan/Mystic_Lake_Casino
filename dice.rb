@@ -93,7 +93,7 @@ class Dice
   def join_game(players)
     if can_join? && players.any?
       players.each do |player|
-        @players[player] = { points: 0, earnings: 0, ante: 0 }
+        @players[player] = { points: 0, earnings: 0.0, ante: 0.0, win: false }
       end
     end
   end
@@ -128,6 +128,7 @@ class Dice
 
   def winner(player, points = 1)
     @players[player][:points] += points
+    @players[player][:win] = true
   end
 
   def loser(player, points = 1)
@@ -136,6 +137,7 @@ class Dice
     elsif @players[player][:points] > 0
       @players[player][:points] = 0
     end
+    @players[player][:win] = false
   end
 
   def play_round(rounds = 1)
@@ -161,21 +163,22 @@ class Dice
 
   def see_bookie
     winner, earnings = high_points_winner
-    @players[winner][:earnings] += earnings
+    @players[winner][:earnings] = earnings
     show_winner_info(winner)
+    winner.wallet.amount += earnings
   end
 
   def high_points_winner
-    highest_points = find_highest_points
-    earnings = 0
-    winner = nil
+    winner = find_highest_points
+    earnings = 0.0
     @players.each do |player, data|
-      if data[:points] == highest_points
-        winner = player
-        if @players.keys.count == 1 && highest_points > 0
-          earnings -= @players[winner][:ante]
+      if player == winner
+        if @players[winner][:win]
+          earnings += data[:ante] # gift from the house
+        else
+          earnings -= data[:ante]
         end
-      else
+      elsif player != winner
         earnings += data[:ante]
         player.wallet.amount -= data[:ante]
       end
@@ -185,16 +188,20 @@ class Dice
 
   def find_highest_points
     highest = -1
-    @players.values.each do |data|
-      highest = data[:points] if data[:points] > highest
+    winner = nil
+    @players.each do |player, data|
+      if data[:points] > highest
+        highest = data[:points]
+        winner = player
+      end
     end
-    highest
+    winner
   end
 
   def show_winner_info(winner)
     points = @players[winner][:points]
     earnings = @players[winner][:earnings]
-    puts "Points Leader:\s#{winner.name}\swith #{points} points and $#{earnings} earnings"
+    puts "Points Leader:\s#{winner.name}\swith #{points} points and $#{earnings} in earnings"
   end
 
 end
