@@ -3,7 +3,7 @@
 # @todo More than one winner detected, split earnings
 
 require 'pry'
-require 'Colorize'
+require 'colorize'
 require 'tty'
 
 # require_relative 'Wallet'
@@ -82,6 +82,12 @@ class Dice
   # @return [Integer]
   def place_bet(player)
     clear_screen
+    puts '   How to Place a Bet'.green
+    puts '   > Pass - Dice sum to 7 or 11'.yellow
+    puts '   > Don\'t Pass - Dice sum to 2, 3, or 12'.yellow
+    puts '   > Points - Dice sum to 4, 5, 6, 8, 9, or 10'.yellow
+    puts '   * Player loses with all other sums'.yellow
+    puts "\n"
     question = "What is #{player.name}\'s bet? " +
       "[ Enter: 1 for pass, 2 for don\'t pass, 3 for points]\s"
     bet = @prompt.ask(question, convert: :int)
@@ -279,13 +285,15 @@ class Dice
   # @param winner [Player] single player object of the winner
   # @return nil
   def show_winner_info(winners)
+    output = nil
     winners.each do |winner|
       points = @players[winner][:points]
       earnings = @players[winner][:earnings]
       output = "Points Leader:\s#{winner.name}\swith #{points}\s" +
         "points and $#{earnings} in earnings"
-      @prompt.say(output)
     end
+    output = 'No Winners! Play Next Round.' if output.nil?
+    @prompt.say(output)
   end
 
 end
