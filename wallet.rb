@@ -14,5 +14,7 @@ class Wallet
         print "You have exactly "
         print @amount
         print " dollars left in your wallet."
+        puts
+        puts
     end    
 end

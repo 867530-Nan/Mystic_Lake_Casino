@@ -6,6 +6,8 @@ require 'colorize'
 require_relative 'player'
 require_relative 'dice'
 require_relative 'heads_tails'
+require_relative 'rpsls'
+
 
 class Casino
   attr_accessor :player, :wallet
@@ -18,7 +20,7 @@ class Casino
   end
 
   def casino_menu
-      @valid_selection = ["1", "2", "3", "4"]
+      @valid_selection = ["0", "1", "2", "3", "4"]
       puts "*****************************************"
       puts "*                                       *"
       puts "*   WELCOME TO THE MYSTIC LAKE CASINO!  *"
@@ -27,8 +29,9 @@ class Casino
       puts "*                                       *"     
       puts "*   1) Play Heads Tails                 *"
       puts "*   2) Play Dice                        *"
-      puts "*   3) Check your wallet for money      *"      
-      puts "*   4) Exit                             *"
+      puts "*   3) Check your wallet for money      *"
+      puts "*   4) Play complimentary game RPSLS    *"      
+      puts "*   0) Exit                             *"
       puts "*                                       *"
       puts "*****************************************"
       puts
@@ -54,17 +57,20 @@ class Casino
         # Call Head Tails Game
         HeadsTails.new(@player)
       when "2"
-        Dice.new(@player)
+        # Call Dice Game
+        Dice.new([@player])
       when "3"
+        # Check wallet balance
         @player.wallet.print_current_balance
-        puts
-        puts
       when "4"
+        # Call RPSLS Game
+        RockGame.new(@player)        
+      when "0"
         exit
-    end
+    end                 # end of case statement
     casino_menu  
-  end 
-end
+  end                   # end of def validate_input
+end                     # end of Casino class
 
 
 Casino.new
