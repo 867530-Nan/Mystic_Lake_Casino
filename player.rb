@@ -4,18 +4,36 @@ require_relative 'wallet'
 class Player
   attr_accessor :name, :age, :gender, :wallet
 
+
+  def get_age
+    puts
+    puts "What is your age, #{@name}?"
+    @age = gets.strip.to_i
+      of_age(@age)
+  end
+
   def initialize()
     puts 'What is your name?'
     @name = gets.strip
-    puts "What is your age, #{@name}?"
-    @age = gets.strip.to_i
+    get_age
+    puts
     puts "What is your gender #{@gender}?"
     @gender = gets.strip
     # random start
     @wallet = Wallet.new 
   end
 
-  def is_of_age?
-    @age > 21
+  def of_age(old)
+    if old >= 21
+      return
+    else
+      puts
+      puts "I am sorry, #{@name.upcase}. You are underage & too young to play in the casino. "
+      puts "Please find a parent to escort you outside to the kiddie pool."
+      puts 
+      puts
+      exit
+    end
   end
-end
+end   # end of Player class
+

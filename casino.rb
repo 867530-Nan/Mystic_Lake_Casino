@@ -62,10 +62,17 @@ class Casino
       when "3"
         # Check wallet balance
         @player.wallet.print_current_balance
+        puts
+        puts "Press Enter to Continue"
+        gets
       when "4"
         # Call RPSLS Game
         RockGame.new(@player)        
       when "0"
+        puts
+        puts "Thanks for giving us all your money! Please come again soon!"
+        puts
+        puts
         exit
     end                 # end of case statement
     casino_menu  
