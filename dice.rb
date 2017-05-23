@@ -285,13 +285,15 @@ class Dice
   # @param winner [Player] single player object of the winner
   # @return nil
   def show_winner_info(winners)
+    output = nil
     winners.each do |winner|
       points = @players[winner][:points]
       earnings = @players[winner][:earnings]
       output = "Points Leader:\s#{winner.name}\swith #{points}\s" +
         "points and $#{earnings} in earnings"
-      @prompt.say(output)
     end
+    output = 'No Winners! Play Next Round.' if output.nil?
+    @prompt.say(output)
   end
 
 end
