@@ -13,6 +13,6 @@ class Wallet
         puts 
         print "You have exactly "
         print @amount
-        print " have left in your wallet."
+        print " dollars left in your wallet."
     end    
 end
