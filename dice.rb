@@ -6,7 +6,7 @@ require 'pry'
 require 'colorize'
 require 'tty'
 
-require_relative 'Wallet'
+# require_relative 'Wallet'
 
 # Rolling Dice Street Game
 class Dice
@@ -309,21 +309,21 @@ class Dice
   end
 
 end
-
-class Player
-  attr_accessor :name, :age, :gender, :wallet
-  def initialize(name, age, gender)
-    @name = name
-    @age = age
-    @gender = gender
-    @wallet = Wallet.new
-  end
-end
-
-players = [
-  Player.new('Jennifer', 34, 'female'),
-  Player.new('Brennick', 21, 'male'),
-  Player.new('Francis', 34, 'female')
-]
-
-Dice.new(players)
+# 
+# class Player
+#   attr_accessor :name, :age, :gender, :wallet
+#   def initialize(name, age, gender)
+#     @name = name
+#     @age = age
+#     @gender = gender
+#     @wallet = Wallet.new
+#   end
+# end
+#
+# players = [
+#   Player.new('Jennifer', 34, 'female'),
+#   Player.new('Brennick', 21, 'male'),
+#   Player.new('Francis', 34, 'female')
+# ]
+#
+# Dice.new(players)
