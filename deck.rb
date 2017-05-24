@@ -8,9 +8,9 @@ require_relative 'Hand'
 
 class Deck < Array
 
-  attr_accessor :suits, :ranks
+  attr_accessor :suits, :ranks, :colors
 
-  alias :deal :shift
+  alias deal shift
 
   def initialize
     super
