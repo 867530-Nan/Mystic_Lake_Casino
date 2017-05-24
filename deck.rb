@@ -20,10 +20,15 @@ class Deck < Array
     @suits.each do |suit|
       @ranks.each do |rank|
         color = suit == @suits.spades || suit == @suits.clubs ? :black : :red
-        pop(Card.new(suit, rank, color))
+        push(Card.new(suit, rank, color))
       end
     end
   end
 end
 
-Deck.new
+deck = Deck.new
+p deck
+gets
+deck.shuffle!
+p deck
+gets
