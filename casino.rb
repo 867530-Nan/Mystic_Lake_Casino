@@ -75,7 +75,7 @@ class Casino
         RockGame.new(@player)
       when "5"
         #Call the Lunch Lady
-        LunchLady.new(@player)        
+        LunchLady.new       
       when "0"
         puts
         puts "Thanks for giving us all your money! Please come again soon!"
