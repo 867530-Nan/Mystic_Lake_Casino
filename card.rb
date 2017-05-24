@@ -14,4 +14,20 @@ class Card
     @rank = rank
     @color = color
   end
+
+  def ==(other)
+    @suit == other.suit && @rank == other.rank && @color == other.color
+  end
+
+  def >(other)
+    @suit > other.suit && @rank > other.rank && @color > other.color
+  end
+
+  def <(other)
+    @suit < other.suit && @rank < other.rank && @color < other.color
+  end
+
+  def <=>(other)
+    [@suit, @rank, @color] <=> [other.suit, other.rank, other.color]
+  end
 end

@@ -50,7 +50,11 @@ class Dice
     puts format '%3s%s', ' ', 'Hit the [Enter Key] to try your luck!'
     gets
     # puts "\e[2J"
-    rounds = @prompt.ask("   Enter the number rounds to be played:\s".red, convert: :int)
+    question = "   Enter the number rounds to be played:\s"
+    rounds = @prompt.ask(question.red, convert: :int) do |q|
+      q.in('1-10')
+      q.messages[:range?] = '%{value} out side of expected range %{in}'
+    end
     play_round(rounds)
   end
 
@@ -90,7 +94,10 @@ class Dice
     puts "\n"
     question = "What is #{player.name}\'s bet? " +
       "[ Enter: 1 for pass, 2 for don\'t pass, 3 for points]\s"
-    bet = @prompt.ask(question, convert: :int)
+    bet = @prompt.ask(question, convert: :int) do |q|
+      q.in '1-3'
+      q.messages[:range?] = '%{value} out of expected range %{in}'
+    end
     bet
   end
 
@@ -229,9 +236,8 @@ class Dice
   # Quietly returns the state of the game back to the main Casino application
   # @return nil
   def quit_game?
-    print "Quit?\s(y/N)\s"
-    yN = gets
-    yN =~ /[y|Y|yes|Yes]/ ? return : play_round
+    bool = @prompt.yes?("Quit?")
+    bool ? return : play_round
   end
 
   # The Bookie determines whether a player wins or loses their ante after a

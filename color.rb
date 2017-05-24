@@ -1,18 +1,17 @@
 # @author Brennick Langston
 # @version 1.0.0
 
-class Rank
+class Color
 
-  attr_accessor :type, :value, :wild
+  attr_accessor :value, :type
 
-  def initialize(type = nil, value = nil, wild = 1)
-    @type = type
+  def initialize(type = nil, value = nil)
     @value = value
-    @wild = wild
+    @type = type
   end
 
   def ==(other)
-    @value == other.value && @wild == other.wild
+    @value == other.value
   end
 
   def >(other)

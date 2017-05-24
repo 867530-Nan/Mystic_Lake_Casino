@@ -9,4 +9,20 @@ class Suit
     @type = type
     @value = value
   end
+
+  def ==(other)
+    @value == other.value
+  end
+
+  def >(other)
+    @value > other.value
+  end
+
+  def <(other)
+    @value < other.value
+  end
+
+  def <=>(other)
+    @value <=> other.value
+  end
 end
