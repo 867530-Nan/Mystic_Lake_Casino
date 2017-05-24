@@ -10,6 +10,7 @@ require_relative 'dice'
 require_relative 'heads_tails'
 require_relative 'rpsls'
 require_relative 'lunchlady'
+require_relative 'guess'
 
 
 class Casino
@@ -29,7 +30,7 @@ class Casino
   end
 
   def casino_menu
-      @valid_selection = ["0", "1", "2", "3", "4", "5"]
+      @valid_selection = ["0", "1", "2", "3", "4", "5", "6"]
       puts "********************************************************"
       puts "*                                                      *"
       puts "*           WELCOME TO THE MYSTIC LAKE CASINO!         *"
@@ -40,7 +41,8 @@ class Casino
       puts "*           2) Play Dice                               *"
       puts "*           3) Check your wallet for money             *"
       puts "*           4) Play complimentary game RPSLS           *"  
-      puts "*           5) Visit the Lunch Lady!                   *"    
+      puts "*           5) Play complimentary game Guess Number    *" 
+      puts "*           6) Visit the Lunch Lady!                   *"   
       puts "*                                                      *"
       puts "*           0) Exit                                    *"
       puts "*                                                      *"
@@ -82,6 +84,9 @@ class Casino
         # Call RPSLS Game
         RockGame.new(@player)
       when "5"
+        # Call Guess the number Game
+        GuessNumber.new(@player)
+      when "6"
         #Call the Lunch Lady
         LunchLady.new       
       when "0"

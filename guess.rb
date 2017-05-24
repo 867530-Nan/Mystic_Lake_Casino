@@ -1,10 +1,10 @@
-#require_relative 'player'
+require_relative 'player'
 
-#class GuessNumber
- #   def initialize(player)
- #       @player = player
- #       display
-  #  end
+class GuessNumber
+    def initialize(player)
+    @player = player
+    display
+end
 
     def instructions
         puts
@@ -80,16 +80,16 @@
     end
 
     def result(guess)
-       puts "Random number was: " 
-       puts @random_number
-       if guess == @random_number
-           puts "Wow! You won! Are you a mind reader or have special powers?"
+    puts
+    puts "Drum roll......The winning number is: #{@random_number}" 
+    puts
+    gets
+        if guess == @random_number
+            puts "Wow! You won! Are you a mind reader or have special powers?"
         else
             puts "Good guess, but not the right one! Better luck next time!"
         end
     end
 
-#end
-#Guess.new(@player)
+end
 
-display
