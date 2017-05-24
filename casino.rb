@@ -1,6 +1,8 @@
 #required gems
 require 'pry'
 require 'colorize'
+require 'artii'
+require 'easy-color'
 
 # Local Classes required - all games
 require_relative 'player'
@@ -15,10 +17,14 @@ class Casino
 
   def initialize
     puts
-    puts 'Welcome to the Ruby Casino!'
-    puts
+    art = Artii::Base.new
+    puts art.asciify('WELCOME TO THE').cyan
+    gets
+    puts art.asciify('MYSTIC').cyan
+    puts art.asciify('LAKE').cyan
+    puts art.asciify('CASINO!').cyan
     @player = Player.new
-    # need a casino menu
+    
     casino_menu
   end
 
@@ -78,7 +84,7 @@ class Casino
         LunchLady.new       
       when "0"
         puts
-        puts "Thanks for giving us all your money! Please come again soon!"
+        puts "Thanks for your money! Please come again soon!"
         puts
         puts
         exit
