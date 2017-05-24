@@ -105,11 +105,10 @@ class RockGame
     end
 
     def rpsls(player_choice)
-        # print a blank line to separate consecutive games
-        print ("\n")
 
         # print out the message for the player's choice
-        print "Player chooses #{player_choice}. "
+        puts
+        puts "Player chooses #{player_choice}. "
 
         # convert the player's choice to player_number using the function name_to_number()
         player_number = name_to_number(player_choice)
@@ -122,13 +121,13 @@ class RockGame
         comp_choice = number_to_name(comp_number)
 
         # print out the message for computer's choice
-        puts " Computer chooses #{comp_choice}. "
+        puts "Computer chooses #{comp_choice}. "
         puts
 
         # compute difference of comp_number and player_number modulo five
         difference = (comp_number - player_number) % 5
         # use if/elif/else to determine winner, print winner message
-        if (@difference == 1 or @difference == 2)
+        if (difference == 1 or difference == 2)
             winner = "Computer wins!"
         elsif (difference == 3 or difference == 4)
             winner = "Player wins!"
@@ -137,8 +136,7 @@ class RockGame
         else
             return "Error: winner can not be determined"
         end
-        puts
-        puts winner
+        print winner
         puts
         puts
     end
