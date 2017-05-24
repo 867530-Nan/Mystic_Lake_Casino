@@ -3,7 +3,7 @@
 
 class Rank
 
-  attr_accessor :type, :value
+  attr_accessor :type, :value, :wild
 
   def initialize(type = nil, value = nil, wild = 1)
     @type = type

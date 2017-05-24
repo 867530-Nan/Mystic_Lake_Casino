@@ -2,23 +2,28 @@
 # @version 1.0.0
 
 require_relative 'Card'
-require_relative 'Suit'
-require_relative 'Rank'
+require_relative 'Suits'
+require_relative 'Ranks'
 
-class Deck
+class Deck < Array
 
-  attr_accessor :stack
+  attr_accessor :suits, :ranks
 
   def initialize
-    create_spades
-    create_diamonds
-    create_clubs
-    create_hearts
+    super
+    @suits = Suits.new
+    @ranks = Ranks.new
+    generate_deck
   end
 
-  def create_spades
-    @stack << Card.new(:A,1,:spades,1,12)
-    @stack << Card.new(:two,2,:spades,1)
-    @stack << Card.new(:three,3,:spades,1)
-    @stack << Card.new(:four,4,:spades,1)
-    @stack << Card.new(:five,5,:spades,1)
+  def generate_deck
+    @suits.each do |suit|
+      @ranks.each do |rank|
+        color = suit == @suits.spades || suit == @suits.clubs ? :black : :red
+        pop(Card.new(suit, rank, color))
+      end
+    end
+  end
+end
+
+Deck.new
