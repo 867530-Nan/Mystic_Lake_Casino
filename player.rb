@@ -1,4 +1,7 @@
-# @todo Implement the wallet class
+#required gems
+require 'ascii_toons'
+
+# Local Classes required
 require_relative 'wallet'
 
 class Player
@@ -28,8 +31,11 @@ class Player
       return
     else
       puts
-      puts "I am sorry, #{@name.upcase}. You are underage & too young to play in the casino. "
-      puts "Please find a parent to escort you outside to the kiddie pool."
+      puts "Press Enter to Continue"
+      gets
+      ASCIIToons::Gandalf.say 'You shall not pass!'
+      #puts "I am sorry, #{@name.capitalize}. You are underage & too young to play in the casino. "
+      #puts "Please find a parent to escort you outside to the kiddie pool."
       puts 
       puts
       exit

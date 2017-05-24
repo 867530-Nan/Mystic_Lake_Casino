@@ -13,7 +13,9 @@ class Casino
   attr_accessor :player, :wallet
 
   def initialize
+    puts
     puts 'Welcome to the Ruby Casino!'
+    puts
     @player = Player.new
     # need a casino menu
     casino_menu
