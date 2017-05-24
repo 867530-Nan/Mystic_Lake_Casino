@@ -181,6 +181,7 @@ class Dice
     else
       loser(player)
     end
+    @prompt.ask('Press [Enter] key to continue..')
   end
 
   # Sets the points gain for a single player from their roll of dice
@@ -190,6 +191,7 @@ class Dice
   def winner(player, points = 1)
     @players[player][:points] += points
     @players[player][:win] = true
+    @prompt.say("#{player.name} Scored #{points} points!!!!!".green)
   end
 
   # Sets the points lost for a single player from their roll of dice
@@ -203,6 +205,7 @@ class Dice
       @players[player][:points] = 0
     end
     @players[player][:win] = false
+    @prompt.say("#{player.name} Lost #{points} points.".red)
   end
 
   # Initiates a number of rounds played for the given set of players
@@ -235,11 +238,12 @@ class Dice
   # round of craps. Also, assigns winnings back into a players wallet
   # @return nil
   def see_bookie
-    winners, earnings = high_points_winner
-    share = earnings/winners.count
+    winners, earnings, winners_pot = high_points_winner
+    # share = earnings/winners.count
     winners.each do |winner|
-      @players[winner][:earnings] = share
-      winner.wallet.amount += share
+      percent_of_earnings = @players[winner][:ante]/winners_pot
+      @players[winner][:earnings] = earnings * percent_of_earnings
+      winner.wallet.amount += earnings * percent_of_earnings
     end
     show_winner_info(winners)
   end
@@ -253,20 +257,16 @@ class Dice
     high_pointers = find_highest_points
     earnings = 0.0
     winners = []
+    winners_pot = 0.0
     @players.each do |player, data|
-      if high_pointers.include?(player)
-        if @players[player][:win] # eliminate players with zero points
-          winners << player
-        else
-          player.wallet.amount - data[:ante] # high points but still lost
-        end
-        earnings += data[:ante]
-      else # non-high_point players
-        earnings += data[:ante]
-        player.wallet.amount -= data[:ante]
+      if high_pointers.include?(player) && @players[player][:win]
+        winners << player
+        winners_pot += @players[player][:ante]
       end
+      earnings += data[:ante]
+      player.wallet.amount -= data[:ante]
     end
-    [winners, earnings]
+    [winners, earnings, winners_pot]
   end
 
   # Determines who the winner or highest points holder is
@@ -288,16 +288,18 @@ class Dice
     output = nil
     winners.each do |winner|
       points = @players[winner][:points]
-      earnings = @players[winner][:earnings]
+      earnings = format("%.2f", @players[winner][:earnings])
+      clear_screen
       output = "Points Leader:\s#{winner.name}\swith #{points}\s" +
         "points and $#{earnings} in earnings"
     end
-    output = 'No Winners! Play Next Round.' if output.nil?
+    output = 'No Winners! Play Next Round.' if winners.empty?
+    clear_screen
     @prompt.say(output)
   end
 
 end
-#
+
 # class Player
 #   attr_accessor :name, :age, :gender, :wallet
 #   def initialize(name, age, gender)
