@@ -6,7 +6,7 @@ require 'pry'
 require 'colorize'
 require 'tty'
 
-# require_relative 'Wallet'
+require_relative 'Wallet'
 
 # Rolling Dice Street Game
 class Dice
@@ -38,8 +38,8 @@ class Dice
     puts format '%3s%s', ' ', '2) Make a bet (select a combination)'
     puts format '%3s%s', ' ', '3) Roll the dice'
     puts format '%3s%s', ' ', '4) Reap your earning for beating the odds'
-    puts format '%3s%s', ' ', '6) Repeat!'
-    puts format '%3s%s', ' ', '5) Call Social Services for financial assistance'
+    puts format '%3s%s', ' ', '5) Repeat!'
+    puts format '%3s%s', ' ', '** Far into debt? Call Social Services for financial assistance'
     puts format '%3s%s', ' ', "\n"
     puts '   How to Place a Bet'.green
     puts '   > Pass - Dice sum to 7 or 11'.yellow
@@ -106,7 +106,11 @@ class Dice
   # @return [Integer]
   def place_ante(player)
     show_wallets
-    ante = @prompt.ask("What is #{player.name}\'s ante?\s", convert: :float)
+    question = "What is #{player.name}\'s ante?\s(Numbers ony! $20.34)"
+    ante = @prompt.ask(question, convert: :float) do |q|
+      q.validate(/\d+\.\d+/)
+      q.messages[:valid?] = 'Your Input is invalid!!! Try Again..'
+    end
     max_ante = player.wallet.amount
     out_of_funds(player) if ante > max_ante || max_ante.zero?
     ante
@@ -306,20 +310,20 @@ class Dice
 
 end
 
-# class Player
-#   attr_accessor :name, :age, :gender, :wallet
-#   def initialize(name, age, gender)
-#     @name = name
-#     @age = age
-#     @gender = gender
-#     @wallet = Wallet.new
-#   end
-# end
-#
-# players = [
-#   Player.new('Jennifer', 34, 'female'),
-#   Player.new('Brennick', 21, 'male'),
-#   Player.new('Francis', 34, 'female')
-# ]
-#
-# Dice.new(players)
+class Player
+  attr_accessor :name, :age, :gender, :wallet
+  def initialize(name, age, gender)
+    @name = name
+    @age = age
+    @gender = gender
+    @wallet = Wallet.new
+  end
+end
+
+players = [
+  Player.new('Jennifer', 34, 'female'),
+  Player.new('Brennick', 21, 'male'),
+  Player.new('Francis', 34, 'female')
+]
+
+Dice.new(players)

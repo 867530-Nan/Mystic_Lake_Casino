@@ -1,10 +1,10 @@
 # @author Brennick Langston
 # @version 1.0.0
 
-require_relative 'Card'
 require_relative 'Suits'
 require_relative 'Ranks'
 require_relative 'Colors'
+require_relative 'Hand'
 
 class Deck < Array
 
@@ -29,9 +29,16 @@ class Deck < Array
     end
     shuffle
   end
+
+  def new_hand(num_cards = 5)
+    Hand.new(deal(num_cards))
+    # deal(num_cards).extend(Hand)
+  end
 end
 
 deck = Deck.new
-hand = deck.deal(5)
-foot = deck.deal(5)
-puts hand <=> foot
+hand = deck.new_hand
+foot = hand.clone.shuffle!.sort!
+puts 'Same Set of Cards?', hand <=> foot
+puts 'Hand', hand.can_trade?, hand.is_a?(Hand)
+puts 'Foot', foot.can_trade?, hand.is_a?(Hand)

@@ -9,13 +9,13 @@ class Suits < Array
 
   def initialize
     super
-    @spades = Suit.new('Spades', 1)
+    @spades = Suit.new(:spades, 1)
     push(@spades)
-    @hearts = Suit.new('Hearts', 1)
+    @hearts = Suit.new(:hearts, 1)
     push(@hearts)
-    @clubs = Suit.new('Clubs', 1)
+    @clubs = Suit.new(:clubs, 1)
     push(@clubs)
-    @diamonds = Suit.new('Diamonds', 1)
+    @diamonds = Suit.new(:diamonds, 1)
     push(@diamonds)
   end
 end
