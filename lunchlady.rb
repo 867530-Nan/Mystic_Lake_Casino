@@ -80,8 +80,7 @@ class LunchLady
     clear_screen
     @prompt.say(@pastel.green('Exiting Application'))
     spacer(5)
-    sleep(0.4)
-    exit
+    sleep(0.4) 
   end
 
   def view_input_error(option)

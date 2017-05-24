@@ -2,6 +2,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     artii (2.1.2)
+    ascii_toons (0.1.0)
     coderay (1.1.1)
     colorize (0.8.1)
     diff-lcs (1.3)
@@ -78,6 +79,7 @@ PLATFORMS
 
 DEPENDENCIES
   artii
+  ascii_toons
   colorize
   easy-color
   pry
